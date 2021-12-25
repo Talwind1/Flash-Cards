@@ -26,6 +26,23 @@ class App extends react.Component {
     });
   };
 
+  addItem = (qus, ans) => {
+    //create id
+    const item = { qus: qus, ans: ans, id: 100 };
+    console.log(item);
+    let data = this.state.data;
+    data.push(item);
+    this.setState({ data });
+  };
+  submit = (qus, ans, id) => {
+    const data = this.state.data;
+    let item = data.find((obj) => obj.id === id);
+    let index = data.indexOf(item);
+    item.qus = qus;
+    item.ans = ans;
+    data[index] = item;
+    this.setState(data);
+  };
   render() {
     return (
       <div className="App">
@@ -44,6 +61,8 @@ class App extends react.Component {
                     data={this.state.data}
                     {...props}
                     deleteFunc={this.delete}
+                    add={this.addItem}
+                    submitItem={this.submit}
                   />
                 )}
               />

@@ -1,6 +1,16 @@
 import React, { Component } from "react";
 
 export default class Manage extends Component {
+  state = {
+    qus: "",
+    ans: "",
+    editing: false,
+    editId: null,
+  };
+
+  edit = (id) => {
+    this.setState({ editing: !this.state.editing, editId: id });
+  };
   displayQus = () => {
     return this.props.data.map((obj) => {
       return (
@@ -24,17 +34,70 @@ export default class Manage extends Component {
           >
             Delete
           </button>
-          <button>Edit</button>
+
+          <button onClick={() => this.edit(obj.id)}>Edit</button>
         </div>
       );
     });
   };
+  onInputChange = (e) => {
+    const { name, value } = e.target;
+    this.setState({ [name]: value });
+  };
+
   render() {
     return (
       <div className="manage">
         {this.props.data && (
           <div className="container">{this.displayQus()}</div>
         )}
+
+        {this.state.editing && (
+          <div>
+            <input
+              type="text"
+              onChange={this.onInputChange}
+              name="qus"
+              placeholder="edit question"
+              value={this.state.qus}
+            />
+            <input
+              type="text"
+              onChange={this.onInputChange}
+              name="ans"
+              placeholder="edit answer"
+              value={this.state.ans}
+            />
+            <button
+              onClick={() => {
+                this.props.submitItem(
+                  this.state.qus,
+                  this.state.ans,
+                  this.state.editId
+                );
+              }}
+            >
+              Submit
+            </button>
+          </div>
+        )}
+        <textarea
+          placeholder="question"
+          name="qus"
+          onChange={this.onInputChange}
+        />
+        <textarea
+          placeholder="answer"
+          name="ans"
+          onChange={this.onInputChange}
+        />
+        <button
+          onClick={() => {
+            this.props.add(this.state.qus, this.state.ans);
+          }}
+        >
+          add
+        </button>
       </div>
     );
   }
