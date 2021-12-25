@@ -28,7 +28,7 @@ class App extends react.Component {
               </Route>
 
               <Route exact path="/manage">
-                <Manage myCart={this.state.data} />
+                <Manage data={this.state.data} />
               </Route>
             </div>
           </Switch>

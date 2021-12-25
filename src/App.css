@@ -27,5 +27,13 @@
   width: 100vw;
   height: 100vh;
 
-  background-color: rgb(195, 226, 121);
+  background-color: rgb(149, 172, 96);
+}
+
+.manage .container {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  grid-template-rows: repeat(2, 1fr);
+  grid-column-gap: 3px;
+  grid-row-gap: 3px;
 }
