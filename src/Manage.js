@@ -1,17 +1,11 @@
 import React, { Component } from "react";
 
 export default class Manage extends Component {
-  state = { data: null };
-  componentDidMount() {
-    const data = this.props.data;
-    this.setState({ data });
-  }
   displayQus = () => {
-    let data = this.state.data;
-    return Object.keys(data).map((obj) => {
+    return this.props.data.map((obj) => {
       return (
         <div
-          key={obj}
+          key={obj.id}
           style={{
             height: "100%",
             width: "60%",
@@ -19,10 +13,17 @@ export default class Manage extends Component {
             margin: "auto",
             textAlign: "center",
           }}
+          id={obj.id}
         >
-          <h3>Question: {data[obj].qus}</h3>
-          <h3>Answer: {data[obj].ans}</h3>
-          <button>Delete</button>
+          <h3>Question: {obj.qus}</h3>
+          <h3>Answer: {obj.ans}</h3>
+          <button
+            onClick={() => {
+              this.props.deleteFunc(obj.id);
+            }}
+          >
+            Delete
+          </button>
           <button>Edit</button>
         </div>
       );
@@ -31,7 +32,7 @@ export default class Manage extends Component {
   render() {
     return (
       <div className="manage">
-        {this.state.data && (
+        {this.props.data && (
           <div className="container">{this.displayQus()}</div>
         )}
       </div>
